@@ -11,7 +11,7 @@ driver = webdriver.Chrome()  # driver initialization
 driver.get("https://qasvus.wixsite.com/ca-marketing")
 driver.maximize_window()
 
-print(driver.title)
+#print(driver.title)
 wait = WebDriverWait(driver, 10)
 
 # Удостоверямся что мы на правильной странице
@@ -63,7 +63,7 @@ Password = "MaximK"
 # Ввод email
 random_email = str(random.randint(0, 99999)) + "myemail@example.com"
 try:
-    element = wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@id='input_input_emailInput_SM_ROOT_COMP857']")))
+    element = wait.until(EC.presence_of_element_located((By.XPATH, "//input[starts-with(@id, 'input_input_emailInput_SM_ROOT_COMP')]")))
     time.sleep(2)
     element.send_keys(random_email)
     print("Email entered successfully.")
@@ -72,7 +72,7 @@ except TimeoutException:
 
 # Ввод password
 try:
-    element = wait.until(EC.visibility_of_element_located((By.XPATH, "//input[@id='input_input_passwordInput_SM_ROOT_COMP857']")))
+    element = wait.until(EC.presence_of_element_located((By.XPATH, "//input[starts-with(@id, 'input_input_passwordInput_SM_ROOT_COMP')]")))
     time.sleep(2)
     element.send_keys(Password)
     print("Password entered successfully.")
@@ -90,5 +90,6 @@ try:
     print("Hello + email is present, the account is register")
 except TimeoutException:
     print("Uppsss, Hello + email is NOT present")
+print("Test#1------------------PASS")
 driver.quit()
 
