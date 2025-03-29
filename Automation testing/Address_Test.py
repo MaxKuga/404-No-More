@@ -1,3 +1,5 @@
+from turtle import title
+
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -29,7 +31,22 @@ class ChromeSearch(unittest.TestCase):
         self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         self.driver.maximize_window()
 
-    def test1_Add_new_Address(self):
+    def test1_add_new_address(self):
         driver = self.driver
-        driver.get('https://qasvus.wixsite.com/ca-marketing')
-        wait = WebDriverWait(driver, 10)
+        driver.get(H.g_url)
+        H.delay1_5()
+        wait = WebDriverWait(driver, 5)
+        H.assert_page_title(driver, driver.title)
+
+
+
+
+
+
+
+
+    def tearDown(self):
+        self.driver.quit()
+
+if __name__ == "__main__":
+    unittest.main()
