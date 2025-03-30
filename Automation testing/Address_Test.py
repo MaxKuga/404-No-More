@@ -21,9 +21,6 @@ from selenium_stealth import stealth
 fake = Faker()
 import Helpers as H
 
-# import from Helpers def delay(1 to 5)
-H.delay1_5()
-
 
 class ChromeSearch(unittest.TestCase):
     # driver initialization
@@ -33,15 +30,38 @@ class ChromeSearch(unittest.TestCase):
 
     def test1_add_new_address(self):
         driver = self.driver
+        wait = WebDriverWait(driver, 5)
         driver.get(H.g_url)
         H.delay1_5()
-        wait = WebDriverWait(driver, 5)
-        H.assert_page_title(driver, driver.title)
+        H.assert_page_title(driver, title)
+        H.logIn(driver)
+        H.delay1_3()
+        try:
+            wait.until(EC.visibility_of_element_located((By.XPATH, H.ddm)))
+            element = wait.until(EC.element_to_be_clickable((By.XPATH, H.ddm)))
+            time.sleep(2)
+            element.click()
+            print("DDM found")
+        except:
+            print("DDM NOT FOUND")
+        time.sleep(2)
+        try:
+            wait.until(EC.visibility_of_element_located((By.XPATH, H.my_addresses)))
+            element = wait.until(EC.element_to_be_clickable((By.XPATH, H.my_addresses)))
+            time.sleep(2)
+            element.click()
+            print("My Addresses found")
+        except:
+            print("Addresses NOT FOUND")
+        time.sleep(5)
+        try:
+            # Ждем появления элемента на странице
+            wait.until(EC.visibility_of_element_located((By.XPATH, "//h1[text()='My Addresses']")))
+            print("Successfully navigated to the correct page, 'root' element found.")
+        except TimeoutException:
+            raise Exception("Failed to navigate to the correct page. 'root' element not found.")
 
-
-
-
-
+    # // *[ @ id = "root"] / div / main / header / h1
 
 
 
